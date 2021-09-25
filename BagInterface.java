@@ -31,6 +31,11 @@ public interface BagInterface<T>
 	/** Retrieves all entries that are in this bag.
 		     @return  A newly allocated array of all the entries in the bag. Note: If the bag is empty, the returned array is empty. */
 	public T[] toArray();
-	 
+
+
+
+	public BagInterface<T> difference(BagInterface<T> bag2) ;
+	
+	
 } // end BagInterface
 
