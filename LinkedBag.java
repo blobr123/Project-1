@@ -165,6 +165,40 @@ public final class LinkedBag<T> implements BagInterface<T>
 		return found;
    } // end contains
 
+	public BagInterface<T> difference(BagInterface<T> bag2) 
+	{
+	  BagInterface<T> diffBagA = new LinkedBag<T>(); 
+	  T[] diffBagB = bag2.toArray(); 
+
+		 Node currentNode = firstNode;
+
+		 while (currentNode != null)
+		 {
+			  diffBagA.add(currentNode.data);
+			  currentNode = currentNode.next;
+		 }//end while
+
+		 currentNode = firstNode;
+
+		 while(currentNode != null)
+		 {
+			  for(int i = 0; i < diffBagB.length; i++)
+			  {
+					if(currentNode.data == diffBagB[i])
+			  {
+				  diffBagA.remove(diffBagB[i]);
+						 for (int index = i; index < (diffBagB.length - 1); ++index)
+						diffBagB[index] = diffBagB[index + 1];
+						 diffBagB[diffBagB.length - 1] = null;
+				  break;
+			  }//end if
+			  }//end while
+			  currentNode = currentNode.next;
+		 }//end for
+	  
+	  return diffBagA;
+	}//end difference
+
 	private class Node
 	{
 	  	private T    data; // Entry in bag

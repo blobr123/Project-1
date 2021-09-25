@@ -215,6 +215,38 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
          throw new IllegalStateException("Attempt to create a bag whose capacity exceeds " +
                                          "allowed maximum of " + MAX_CAPACITY);
    } // end checkCapacity
+
+   public BagInterface<T> difference(BagInterface<T> bag2) 
+   {
+       checkintegrity();
+     
+     ResizableArrayBag<T> diffBagA = new ResizableArrayBag<T>(); // Unchecked cast
+     ResizableArrayBag<T> diffBagB = new ResizableArrayBag<T>(); // Unchecked cast
+     for (int index = 0; index < this.getCurrentSize(); index++)
+     {
+        diffBagA.add(this.bag[index]);
+     } // end for
+     for (int index = 0; index < bag2.getCurrentSize(); index++)
+     {
+        diffBagB.add(bag2.toArray()[index]);
+     } // end for   
+     if(!diffBagA.isEmpty() && !diffBagB.isEmpty())
+     {
+        for (int i = 0; i < diffBagA.numberOfEntries; i++)
+        {
+        for (int j = 0; j < diffBagB.numberOfEntries; j++)
+           {
+              if(diffBagA.bag[i] == diffBagB.bag[j])
+              {
+                 diffBagA.remove(diffBagB.bag[j]);
+                 diffBagB.remove(diffBagB.bag[j]);
+                 break;
+              }
+           }
+        } // end for
+  }
+     return diffBagA;
+   }// end difference
    
    // Throws an exception if receiving object is not initialized.
    private void checkintegrity()
