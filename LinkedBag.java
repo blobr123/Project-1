@@ -97,6 +97,11 @@ public final class LinkedBag<T> implements BagInterface<T>
 	
 		return result;
 	 } // end remove	
+	
+	/** 
+	 * @param anEntry
+	 * @return Node
+	 */
 	// Locates a given entry within this bag.
 	// Returns a reference to the node containing the // entry, if located, or null otherwise.
 	private Node getReferenceTo(T anEntry)
@@ -165,36 +170,41 @@ public final class LinkedBag<T> implements BagInterface<T>
 		return found;
    } // end contains
 
+	
+	/** Finds the difference in content between two bags.
+	 * @param bag2 The bag whose contents will be removed from the main bag
+	 * @return BagInterface<T> which will have the contents of the difference.
+	 */
 	public BagInterface<T> difference(BagInterface<T> bag2) 
 	{
-	  BagInterface<T> diffBagA = new LinkedBag<T>(); 
-	  T[] diffBagB = bag2.toArray(); 
+		BagInterface<T> diffBagA = new LinkedBag<T>(); 
+	   T[] diffBagB = bag2.toArray(); 
 
-		 Node currentNode = firstNode;
+		Node currentNode = firstNode;
 
-		 while (currentNode != null)
-		 {
-			  diffBagA.add(currentNode.data);
-			  currentNode = currentNode.next;
-		 }//end while
+		while (currentNode != null && !this.isEmpty())
+		{
+		   diffBagA.add(currentNode.data);
+			currentNode = currentNode.next;
+		}//end while
 
-		 currentNode = firstNode;
+		currentNode = firstNode;
 
-		 while(currentNode != null)
-		 {
-			  for(int i = 0; i < diffBagB.length; i++)
-			  {
-					if(currentNode.data == diffBagB[i])
-			  {
-				  diffBagA.remove(diffBagB[i]);
-						 for (int index = i; index < (diffBagB.length - 1); ++index)
-						diffBagB[index] = diffBagB[index + 1];
-						 diffBagB[diffBagB.length - 1] = null;
-				  break;
-			  }//end if
-			  }//end while
-			  currentNode = currentNode.next;
-		 }//end for
+		while(currentNode != null && !bag2.isEmpty())
+		{
+			for(int i = 0; i < diffBagB.length; i++)
+		   {
+				if(currentNode.data == diffBagB[i])
+		  		{
+				  	diffBagA.remove(diffBagB[i]);
+					for (int index = i; index < (diffBagB.length - 1); ++index)
+					diffBagB[index] = diffBagB[index + 1];
+					diffBagB[diffBagB.length - 1] = null;
+			  		break;
+		  		}//end if
+		  	}//end for
+			currentNode = currentNode.next;
+		}//end while
 	  
 	  return diffBagA;
 	}//end difference

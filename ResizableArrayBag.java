@@ -147,7 +147,12 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
       return anEntry.equals(result);
 	} // end remove
    
- 	// Locates a given entry within the array bag.
+ 	
+    /** 
+     * @param anEntry
+     * @return int
+     */
+    // Locates a given entry within the array bag.
 	// Returns the index of the entry, if located,
 	// or -1 otherwise.
    // Precondition: checkintegrity has been called.
@@ -173,6 +178,11 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
 		return where;
 	} // end getIndexOf
    
+   
+   /** 
+    * @param givenIndex
+    * @return T
+    */
    // Removes and returns the entry at a given index within the array.
    // If no such entry exists, returns null.
    // Precondition: 0 <= givenIndex < numberOfEntries.
@@ -193,6 +203,10 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
       return result;
 	} // end removeEntry
    
+   
+   /** 
+    * @return boolean
+    */
    // Returns true if the array bag is full, or false if not.
 	private boolean isArrayFull()
 	{
@@ -208,6 +222,10 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
       bag = Arrays.copyOf(bag, newLength);
 	} // end doubleCapacity
    
+   
+   /** 
+    * @param capacity
+    */
    // Throws an exception if the client requests a capacity that is too large.
    private void checkCapacity(int capacity)
    {
@@ -216,6 +234,11 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
                                          "allowed maximum of " + MAX_CAPACITY);
    } // end checkCapacity
 
+   
+   /** Finds the difference in content between two bags.
+    * @param bag2 The bag whose contents will be removed from the main bag
+    * @return BagInterface<T> which will have the contents of the difference.
+    */
    public BagInterface<T> difference(BagInterface<T> bag2) 
    {
        checkintegrity();
